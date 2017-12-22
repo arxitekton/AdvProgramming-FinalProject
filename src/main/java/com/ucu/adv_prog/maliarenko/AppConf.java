@@ -37,4 +37,13 @@ public class AppConf {
                 "codes.properties"));
         return bean;
     }
+
+    @Bean(name = "teamsProperties")
+    public static PropertiesFactoryBean teamsMapper() {
+        PropertiesFactoryBean bean = new PropertiesFactoryBean();
+        bean.setLocation(new ClassPathResource(
+                "teams.properties"));
+        return bean;
+    }
+
 }

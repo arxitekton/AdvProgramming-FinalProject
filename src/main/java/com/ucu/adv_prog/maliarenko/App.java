@@ -18,9 +18,6 @@ public class App
 
         BusinessLogic businessLogic = context.getBean(BusinessLogic.class);
         businessLogic.doEnrichment();
-        //String test = "code=10;from=Jonathan Tah;to=Oleg Shatov;eventTime=200:38;stadion=room;startTime=13:18;";
-        //Map<String, String> map = Splitter.on( ";" ).omitEmptyStrings().trimResults().withKeyValueSeparator( '=' ).split( test );
-        //System.out.println(map);
 
     }
 }

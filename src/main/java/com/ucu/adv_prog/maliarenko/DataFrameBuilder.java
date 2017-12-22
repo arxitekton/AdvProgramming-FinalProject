@@ -33,16 +33,12 @@ public class DataFrameBuilder {
         JavaRDD<MatchEvent> eventRdd = rdd
                 .filter(line -> line.length()!=0)
                 .map(line -> {
-                    System.out.println(line);
 
                     Map<String, String> map = Splitter.on( ";" )
                             .omitEmptyStrings()
                             .trimResults()
                             .withKeyValueSeparator( '=' )
                             .split( line );
-
-                    System.out.println(map);
-                    System.out.println(map.get("from"));
 
                     MatchEvent event = MatchEvent.builder()
                         .code(map.get("code"))

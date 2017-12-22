@@ -16,8 +16,10 @@ public class BusinessLogic {
 
     public void doEnrichment(){
         DataFrame dataFrame = dataFrameBuilder.load();
-        dataFrame=dataFrame.withColumn("code_description",
-                callUDF(CodesConverter.class.getName(),col("code")));
+        dataFrame=dataFrame
+                .withColumn("code_description", callUDF(CodesConverter.class.getName(),col("code")))
+                .withColumn("fromTeam", callUDF(TeamDetection.class.getName(),col("from")))
+                .withColumn("toTeam", callUDF(TeamDetection.class.getName(),col("to")));
         dataFrame.show();
 
     }
