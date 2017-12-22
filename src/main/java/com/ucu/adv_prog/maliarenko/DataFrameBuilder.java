@@ -10,7 +10,12 @@ import org.apache.spark.sql.types.DataTypes;
 import org.apache.spark.sql.types.StructField;
 import org.apache.spark.sql.types.StructType;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+
+import com.google.common.base.Splitter;
+
+import java.util.Map;
 
 @Service
 public class DataFrameBuilder {
@@ -20,15 +25,39 @@ public class DataFrameBuilder {
     @Autowired
     private SQLContext sqlContext;
 
+    @Value("${rawdata.path}")
+    private String rawdataPath;
 
     public DataFrame load() {
-        JavaRDD<String> rdd = sc.textFile("data/transactions.csv");
-        JavaRDD<Row> rowJavaRDD = rdd.map(line -> {
-            String[] data = line.split(";");
-            return RowFactory.create(Integer.parseInt(data[0]), Integer.parseInt(data[1]), Integer.parseInt(data[2]));
+        JavaRDD<String> rdd = sc.textFile(rawdataPath);
+        JavaRDD<MatchEvent> eventRdd = rdd
+                .filter(line -> line.length()!=0)
+                .map(line -> {
+                    System.out.println(line);
+
+                    Map<String, String> map = Splitter.on( ";" )
+                            .omitEmptyStrings()
+                            .trimResults()
+                            .withKeyValueSeparator( '=' )
+                            .split( line );
+
+                    System.out.println(map);
+                    System.out.println(map.get("from"));
+
+                    MatchEvent event = MatchEvent.builder()
+                        .code(map.get("code"))
+                        .from(map.get("from"))
+                        .to(map.get("to"))
+                        .eventTime(map.get("eventTime"))
+                        .stadion(map.get("stadion")).build();
+
+                    return event;
         });
 
-       return sqlContext.createDataFrame(rowJavaRDD,createSchema());
+        //JavaRDD<Row> rowRDD = eventRdd.map(event -> RowFactory.create(event.getCode(), event.getCityName(), event.getKm()));
+
+        return sqlContext.createDataFrame(eventRdd, MatchEvent.class);
+
 
     }
 
