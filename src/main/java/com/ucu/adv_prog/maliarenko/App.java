@@ -17,7 +17,6 @@ public class App
     {
         System.out.println( "Final Project!" );
         AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(AppConf.class);
-        context.getEnvironment().setActiveProfiles("dev");
 
         DataFrameBuilder dataFrameBuilder = context.getBean(DataFrameBuilder.class);
         DataFrame dataFrame = dataFrameBuilder.load();
