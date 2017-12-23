@@ -50,30 +50,10 @@ public class DataFrameBuilder {
                     return event;
         });
 
-        //JavaRDD<Row> rowRDD = eventRdd.map(event -> RowFactory.create(event.getCode(), event.getCityName(), event.getKm()));
-
         return sqlContext.createDataFrame(eventRdd, MatchEvent.class);
 
 
     }
-
-
-    private static StructType createSchema() {
-        return DataTypes.createStructType(new StructField[]{
-                DataTypes.createStructField("country code", DataTypes.IntegerType, false),
-                DataTypes.createStructField("amount", DataTypes.IntegerType, false),
-                DataTypes.createStructField("account number", DataTypes.IntegerType, false)
-        });
-    }
-
-
-
-
-
-
-
-
-
 
 
 }

@@ -1,5 +1,7 @@
 package com.ucu.adv_prog.maliarenko;
 
+import org.apache.spark.sql.DataFrame;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import java.util.Map;
@@ -15,9 +17,13 @@ public class App
     {
         System.out.println( "Final Project!" );
         AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(AppConf.class);
+        context.getEnvironment().setActiveProfiles("dev");
+
+        DataFrameBuilder dataFrameBuilder = context.getBean(DataFrameBuilder.class);
+        DataFrame dataFrame = dataFrameBuilder.load();
 
         BusinessLogic businessLogic = context.getBean(BusinessLogic.class);
-        businessLogic.doEnrichment();
+        DataFrame newDataFrame = businessLogic.doEnrichment(dataFrame);
 
     }
 }
