@@ -1,7 +1,7 @@
 package com.ucu.adv_prog.maliarenko.udf;
 
-import com.ucu.adv_prog.maliarenko.AutowiredBroadcast;
-import com.ucu.adv_prog.maliarenko.RegisterUDF;
+import com.ucu.adv_prog.maliarenko.broadcast.AutowiredBroadcast;
+import com.ucu.adv_prog.maliarenko.registerUDF.RegisterUDF;
 import com.ucu.adv_prog.maliarenko.config.TeamsConfig;
 import org.apache.spark.broadcast.Broadcast;
 import org.apache.spark.sql.api.java.UDF1;

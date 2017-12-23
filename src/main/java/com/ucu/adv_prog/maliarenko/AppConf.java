@@ -1,6 +1,6 @@
 package com.ucu.adv_prog.maliarenko;
 
-import com.ucu.adv_prog.maliarenko.bpp.AutowiredBroadcastBPP;
+import com.ucu.adv_prog.maliarenko.broadcast.AutowiredBroadcastBPP;
 import org.apache.spark.SparkConf;
 import org.apache.spark.api.java.JavaSparkContext;
 import org.apache.spark.sql.SQLContext;

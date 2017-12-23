@@ -2,12 +2,9 @@ package com.ucu.adv_prog.maliarenko;
 
 import com.ucu.adv_prog.maliarenko.aop.ShowDataFrameInTheBeginning;
 import com.ucu.adv_prog.maliarenko.aop.ShowDataFrameInTheEnd;
-import com.ucu.adv_prog.maliarenko.udf.CodesConverter;
-import com.ucu.adv_prog.maliarenko.udf.PeriodDetection;
-import com.ucu.adv_prog.maliarenko.udf.TeamDetection;
+import com.ucu.adv_prog.maliarenko.udf.*;
 import org.apache.spark.sql.Column;
 import org.apache.spark.sql.DataFrame;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import static org.apache.spark.sql.functions.*;
@@ -35,9 +32,13 @@ public class BusinessLogic {
 
         Column valid = when(col("code_description").isNull() , false)
                 .when(col("period").isNull() , false)
-                .otherwise(true);;
-
+                .when(col("fromTeam").isNull().or(col("toTeam").isNull()) , false)
+                .otherwise(true);
         dataFrame=dataFrame.withColumn("valid", valid);
+
+        dataFrame=dataFrame
+                .withColumn("valid", callUDF(CodesAndPlayersValidator.class.getName(),col("code"),col("from"),col("to")).and(col("valid")));
+
 
 
         return dataFrame;

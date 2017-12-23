@@ -1,4 +1,4 @@
-package com.ucu.adv_prog.maliarenko;
+package com.ucu.adv_prog.maliarenko.model;
 
 import lombok.Builder;
 import lombok.Data;

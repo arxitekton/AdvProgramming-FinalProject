@@ -14,6 +14,6 @@ import java.util.Map;
 public class CodesConfig implements Serializable{
     @Getter
     @Resource(name = "codesProperties")
-    private Map<Integer, String> map = new HashMap<>();
+    private Map<String, String> map = new HashMap<>();
 
 }

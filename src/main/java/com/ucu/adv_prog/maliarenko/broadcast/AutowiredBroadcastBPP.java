@@ -1,6 +1,5 @@
-package com.ucu.adv_prog.maliarenko.bpp;
+package com.ucu.adv_prog.maliarenko.broadcast;
 
-import com.ucu.adv_prog.maliarenko.AutowiredBroadcast;
 import org.apache.spark.api.java.JavaSparkContext;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
