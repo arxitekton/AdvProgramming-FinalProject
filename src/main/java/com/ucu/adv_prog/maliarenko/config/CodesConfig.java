@@ -1,4 +1,4 @@
-package com.ucu.adv_prog.maliarenko;
+package com.ucu.adv_prog.maliarenko.config;
 
 import lombok.Getter;
 import org.springframework.stereotype.Component;

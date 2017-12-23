@@ -13,7 +13,7 @@ public class App
 {
     public static void main( String[] args )
     {
-        System.out.println( "Hello World!" );
+        System.out.println( "Final Project!" );
         AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(AppConf.class);
 
         BusinessLogic businessLogic = context.getBean(BusinessLogic.class);
