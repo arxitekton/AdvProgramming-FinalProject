@@ -23,7 +23,8 @@ public class App
         DataFrame dataFrame = dataFrameBuilder.load();
 
         BusinessLogic businessLogic = context.getBean(BusinessLogic.class);
-        DataFrame newDataFrame = businessLogic.doEnrichment(dataFrame);
+        DataFrame enrichDataFrame = businessLogic.doEnrichment(dataFrame);
+        DataFrame validDataFrame = businessLogic.doValidation(enrichDataFrame);
 
     }
 }

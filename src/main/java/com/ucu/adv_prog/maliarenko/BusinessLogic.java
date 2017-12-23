@@ -5,6 +5,7 @@ import com.ucu.adv_prog.maliarenko.aop.ShowDataFrameInTheEnd;
 import com.ucu.adv_prog.maliarenko.udf.CodesConverter;
 import com.ucu.adv_prog.maliarenko.udf.PeriodDetection;
 import com.ucu.adv_prog.maliarenko.udf.TeamDetection;
+import org.apache.spark.sql.Column;
 import org.apache.spark.sql.DataFrame;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,4 +29,19 @@ public class BusinessLogic {
         return dataFrame;
 
     }
+
+    @ShowDataFrameInTheEnd
+    public DataFrame doValidation(DataFrame dataFrame){
+
+        Column valid = when(col("code_description").isNull() , false)
+                .when(col("period").isNull() , false)
+                .otherwise(true);;
+
+        dataFrame=dataFrame.withColumn("valid", valid);
+
+
+        return dataFrame;
+
+    }
+
 }
